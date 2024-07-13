@@ -132,7 +132,7 @@ def same_beta():
     B = np.diag(beta) @ A
     if np.count_nonzero(B) <= N:
         print('Assumption 4 could be violated! Too many zeroes in B!')
-
+    
     # N random deltas
     delta = np.random.uniform(0, 10, N)
 
@@ -140,8 +140,11 @@ def same_beta():
     print('delta is '+str(delta))
     print('beta is '+ str(beta))
     print('A is ' + str(A))
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2_A.csv", A, delimiter=",")
-    
+    spectral_radius = np.max(np.abs(np.linalg.eigvals(np.eye(N) + h * (B - np.diag(delta)))))
+    if spectral_radius <= 1:
+        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1_A.csv", A, delimiter=",")
+    else:
+        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2_A.csv", A, delimiter=",")
 
     return B, delta
 
