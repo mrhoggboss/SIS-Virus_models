@@ -128,6 +128,10 @@ def same_beta():
         # healing rate beta must follow assumption 3
         lower_bound = min(10 / (np.sum(A[i])), lower_bound)
     beta = np.random.uniform(0, lower_bound)
+
+    # for making spectral radius smaller
+    # beta *= 0.7
+
     beta = list(np.full((1, N), beta)[0])
     B = np.diag(beta) @ A
     if np.count_nonzero(B) <= N:
@@ -146,9 +150,9 @@ def same_beta():
         np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/beta.csv", beta, delimiter=",")
         np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/delta.csv", delta, delimiter=",")
     else:
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2_A.csv", A, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2_beta.csv", beta, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2_delta.csv", delta, delimiter=",")
+        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2/A.csv", A, delimiter=",")
+        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2/beta.csv", beta, delimiter=",")
+        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2/delta.csv", delta, delimiter=",")
 
     return B, delta
 
