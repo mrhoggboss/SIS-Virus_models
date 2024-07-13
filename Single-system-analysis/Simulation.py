@@ -15,7 +15,7 @@ import os
 # - manually restrict x up to 1 at every iteration?
 
 # seed
-np.random.seed(342)
+np.random.seed(1503)
 
 # Parameters
 N = 20  # Number of nodes
@@ -129,16 +129,16 @@ def random_exp():
 
     return B, delta
 
-x_histories = []
-B, delta = random_exp()
-x = np.random.uniform(0, 1, N)
-for num in range(1, 10):
-    x.fill(num/10)
-    print('x is '+str(x))
-    spectral_radius, x_history = run_simulation(x, B, delta)
-    x_histories.append(x_history)
+# x_histories = []
+# B, delta = random_exp()
+# x = np.random.uniform(0, 1, N)
+# for num in range(1, 10):
+#     x.fill(num/10)
+#     print('x is '+str(x))
+#     spectral_radius, x_history = run_simulation(x, B, delta)
+#     x_histories.append(x_history)
 
-plot_simulation(x_histories)
+# plot_simulation(x_histories)
 
 # ------------------------------------------------------------------------------------------------------------
 # Experiment 2: same healing rate beta but different deltas
@@ -197,6 +197,7 @@ def same_delta():
 
     # Assumption 3 - each delta is bounded by 10 and the sum of any row of beta_ij cannot exceed 10
     delta = np.random.uniform(0, 10)
+    delta *= 1.3
     delta = list(np.full((1, N), delta)[0])
     
     # N random betas
@@ -205,10 +206,13 @@ def same_delta():
         # healing rate beta must follow assumption 3
         lower_bound = min(10 / (np.sum(A[i])), lower_bound)
     beta = np.random.uniform(0, lower_bound, N)
+
+    beta *= 0.9
+
     B = np.diag(beta) @ A
     if np.count_nonzero(B) <= N:
         print('Assumption 4 could be violated! Too many zeroes in B!')
-    
+
     # just to double check
     print('delta is '+str(delta))
     print('beta is '+ str(beta))
@@ -226,7 +230,7 @@ def same_delta():
     return B, delta
 
 # x_histories = []
-# B, delta = same_beta()
+# B, delta = same_delta()
 # x = np.random.uniform(0, 1, N)
 # for num in range(1, 10):
 #     x.fill(num/10)
