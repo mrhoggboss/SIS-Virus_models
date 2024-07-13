@@ -142,9 +142,13 @@ def same_beta():
     print('A is ' + str(A))
     spectral_radius = np.max(np.abs(np.linalg.eigvals(np.eye(N) + h * (B - np.diag(delta)))))
     if spectral_radius <= 1:
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1_A.csv", A, delimiter=",")
+        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/A.csv", A, delimiter=",")
+        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/beta.csv", beta, delimiter=",")
+        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/delta.csv", delta, delimiter=",")
     else:
         np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2_A.csv", A, delimiter=",")
+        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2_beta.csv", beta, delimiter=",")
+        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2_delta.csv", delta, delimiter=",")
 
     return B, delta
 
