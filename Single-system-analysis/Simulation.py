@@ -129,16 +129,16 @@ def random_exp():
 
     return B, delta
 
-# x_histories = []
-# B, delta = random_exp()
-# x = np.random.uniform(0, 1, N)
-# for num in range(1, 10):
-#     x.fill(num/10)
-#     print('x is '+str(x))
-#     spectral_radius, x_history = run_simulation(x, B, delta)
-#     x_histories.append(x_history)
+x_histories = []
+B, delta = random_exp()
+x = np.random.uniform(0, 1, N)
+for num in range(1, 10):
+    x.fill(num/10)
+    print('x is '+str(x))
+    spectral_radius, x_history = run_simulation(x, B, delta)
+    x_histories.append(x_history)
 
-# plot_simulation(x_histories)
+plot_simulation(x_histories)
 
 # ------------------------------------------------------------------------------------------------------------
 # Experiment 2: same healing rate beta but different deltas
@@ -167,15 +167,16 @@ def same_beta():
     print('delta is '+str(delta))
     print('beta is '+ str(beta))
     print('A is ' + str(A))
-    spectral_radius = np.max(np.abs(np.linalg.eigvals(np.eye(N) + h * (B - np.diag(delta)))))
-    if spectral_radius <= 1:
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/A.csv", A, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/beta.csv", beta, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/delta.csv", delta, delimiter=",")
-    else:
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2/A.csv", A, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2/beta.csv", beta, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2/delta.csv", delta, delimiter=",")
+
+    # spectral_radius = np.max(np.abs(np.linalg.eigvals(np.eye(N) + h * (B - np.diag(delta)))))
+    # if spectral_radius <= 1:
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/A.csv", A, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/beta.csv", beta, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_thm1/delta.csv", delta, delimiter=",")
+    # else:
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2/A.csv", A, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2/beta.csv", beta, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_beta_prop2/delta.csv", delta, delimiter=",")
 
     return B, delta
 
@@ -207,7 +208,7 @@ def same_delta():
         lower_bound = min(10 / (np.sum(A[i])), lower_bound)
     beta = np.random.uniform(0, lower_bound, N)
 
-    beta *= 0.9
+    # beta *= 0.9
 
     B = np.diag(beta) @ A
     if np.count_nonzero(B) <= N:
@@ -217,15 +218,15 @@ def same_delta():
     print('delta is '+str(delta))
     print('beta is '+ str(beta))
 
-    spectral_radius = np.max(np.abs(np.linalg.eigvals(np.eye(N) + h * (B - np.diag(delta)))))
-    if spectral_radius <= 1:
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_thm1/A.csv", A, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_thm1/beta.csv", beta, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_thm1/delta.csv", delta, delimiter=",")
-    else:
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_prop2/A.csv", A, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_prop2/beta.csv", beta, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_prop2/delta.csv", delta, delimiter=",")
+    # spectral_radius = np.max(np.abs(np.linalg.eigvals(np.eye(N) + h * (B - np.diag(delta)))))
+    # if spectral_radius <= 1:
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_thm1/A.csv", A, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_thm1/beta.csv", beta, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_thm1/delta.csv", delta, delimiter=",")
+    # else:
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_prop2/A.csv", A, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_prop2/beta.csv", beta, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/same_delta_prop2/delta.csv", delta, delimiter=",")
 
     return B, delta
 
