@@ -64,7 +64,8 @@ def plot_simulation(x_histories):
     #     plt.plot(x_history[:, i], label=f'Node {i+1}')
     for row in axs:
         for col in row:
-            col.plot(x_histories.pop(0))
+            x_history = x_histories.pop(0)
+            col.plot(x_history)
             col.text(iterations, x_history[-1], f"({round(x_history[-1], 4)})", fontsize=8)
             ax = plt.gca()
             ax.set_ylim([0, 1])
@@ -117,28 +118,28 @@ def random_exp():
     print('delta is '+str(delta))
     print('beta is '+ str(beta))
 
-    spectral_radius = np.max(np.abs(np.linalg.eigvals(np.eye(N) + h * (B - np.diag(delta)))))
-    if spectral_radius <= 1:
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_thm1/A.csv", A, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_thm1/beta.csv", beta, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_thm1/delta.csv", delta, delimiter=",")
-    else:
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_prop2/A.csv", A, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_prop2/beta.csv", beta, delimiter=",")
-        np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_prop2/delta.csv", delta, delimiter=",")
+    # spectral_radius = np.max(np.abs(np.linalg.eigvals(np.eye(N) + h * (B - np.diag(delta)))))
+    # if spectral_radius <= 1:
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_thm1/A.csv", A, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_thm1/beta.csv", beta, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_thm1/delta.csv", delta, delimiter=",")
+    # else:
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_prop2/A.csv", A, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_prop2/beta.csv", beta, delimiter=",")
+    #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Single-system-analysis/rand_prop2/delta.csv", delta, delimiter=",")
 
     return B, delta
 
-x_histories = []
-B, delta = random_exp()
-x = np.random.uniform(0, 1, N)
-for num in range(1, 10):
-    x.fill(num/10)
-    print('x is '+str(x))
-    spectral_radius, x_history = run_simulation(x, B, delta)
-    x_histories.append(x_history)
+# x_histories = []
+# B, delta = random_exp()
+# x = np.random.uniform(0, 1, N)
+# for num in range(1, 10):
+#     x.fill(num/10)
+#     print('x is '+str(x))
+#     spectral_radius, x_history = run_simulation(x, B, delta)
+#     x_histories.append(x_history)
 
-plot_simulation(x_histories)
+# plot_simulation(x_histories)
 
 # ------------------------------------------------------------------------------------------------------------
 # Experiment 2: same healing rate beta but different deltas
