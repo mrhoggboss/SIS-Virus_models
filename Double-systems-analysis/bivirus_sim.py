@@ -18,6 +18,11 @@ import copy
 # seed
 np.random.seed(444441212)
 
+# this seed is used for rand thm2 and rand thm3.
+# for rand thm2, let delta_bound be between 7 and 10.
+# for rand thm3, let delta_bound be between 4 and 7, and let beta_1_bound be between 0 and beta_bound / 20
+# np.random.seed(444441212)
+
 # this seed generates a case where sr1 slightly above 1 and sr2 is slightly below 1.
 # np.random.seed(44444112)
 
