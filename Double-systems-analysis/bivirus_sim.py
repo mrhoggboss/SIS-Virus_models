@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 import copy
-
+import sys
+import random
 # SOME NOTES:
 # beta is infection rate - wrt each pair of nodes
 # delta is healing rate - wrt each node
@@ -15,8 +16,12 @@ import copy
 # - What to do with diagonal entries in A?
 # - manually restrict x up to 1 at every iteration?
 
+# seed = random.randrange(1, 2**31)
+seed = 1669509115
+rng = np.random.seed(seed)
+print("Seed was:", seed)
 # seed
-np.random.seed(444441212)
+# np.random.seed(62)
 
 # this seed is used for rand thm2 and rand thm3.
 # for rand thm2, let delta_bound be between 7 and 10.
@@ -79,25 +84,23 @@ def run_simulation(x1, x2 , B, delta):
     elif spectral_radius_1 > 1 and spectral_radius_2 > 1:
         det_radius_1 = np.max(np.abs(np.linalg.eigvals(np.eye(N) - h * np.diag(delta[1]) + (np.eye(N) - np.diag(x1_history[-1])) @ B[1])))
         det_radius_2 = np.max(np.abs(np.linalg.eigvals(np.eye(N) - h * np.diag(delta[0]) + (np.eye(N) - np.diag(x2_history[-1])) @ B[0])))
+        print('det radius 1 is '+str(det_radius_1))
+        print('det radius 2 is '+str(det_radius_2))
         if det_radius_1 < 1 and det_radius_2 < 1:
             label = 5 
             # 1) both (x_1, 0) and (0, x_2) are stable
             # 2) also exists (x_1hat, x_2hat) which is unstable
-        else:
-            if det_radius_1 > 1 and det_radius_2 > 1:
-                label = 4.1
-                # 1) both (x_1, 0) and (0, x_2) are unstable
-            elif det_radius_1 <= 1 and det_radius_2 > 1:
-                label = 4.2
-                # 1) (x_1, 0) stable 
-                # 2) (0, x_2) unstable
-            elif det_radius_1 > 1 and det_radius_2 <= 1:
-                label = 4.3
-                # 1) (x_1, 0) unstable 
-                # 2) (0, x_2) stable
-            else:
-                label = 4.4
-                # both (x_1, 0) and (0, x_2) are stable
+        elif det_radius_1 > 1 and det_radius_2 > 1:
+            label = 4.1
+            # 1) both (x_1, 0) and (0, x_2) are unstable
+        elif det_radius_1 <= 1 and det_radius_2 > 1:
+            label = 4.2
+            # 1) (x_1, 0) stable 
+            # 2) (0, x_2) unstable
+        elif det_radius_1 > 1 and det_radius_2 <= 1:
+            label = 4.3
+            # 1) (x_1, 0) unstable 
+            # 2) (0, x_2) stable
     elif spectral_radius_1 > 1 and spectral_radius_2 <= 1:
         label = 3.1 # Theorem 3, with (x_1, 0) stable
 
@@ -106,7 +109,7 @@ def run_simulation(x1, x2 , B, delta):
  
     print(label)
 
-    return label, spectral_radius_1, spectral_radius_2, x1_avg_history, x2_avg_history
+    return label, spectral_radius_1, spectral_radius_2, x1_avg_history, x2_avg_history, det_radius_1, det_radius_2
 
 # def plot_simulation(x1_history, x2_history):
 #     # Plot the results
@@ -186,13 +189,15 @@ def random_exp():
     beta_1 = []
     beta_2 = []
     for i in range(N):
-        delta_bound = np.random.uniform(7, 10)
-        beta_bound = 10 - delta_bound
+        # sum_a6 = np.random.uniform(0, 10)
+        sum_a6 = 8
+        delta_bound = np.random.uniform(0, sum_a6)
+        beta_bound = sum_a6 - delta_bound
 
-        delta_1.append(np.random.uniform(0, delta_bound))
-        delta_2.append(np.random.uniform(0, delta_bound))
+        delta_1.append(np.random.uniform(0, delta_bound / 5))
+        delta_2.append(np.random.uniform(0, delta_bound / 8))
 
-        beta_1_bound = np.random.uniform(0, beta_bound)
+        beta_1_bound = np.random.uniform(0, beta_bound / 6)
         beta_1.append(np.random.uniform(0, beta_1_bound / (np.sum(A1[i]))))
         beta_2.append(np.random.uniform(0, (beta_bound - beta_1_bound) / (np.sum(A2[i]))))
 
@@ -249,7 +254,7 @@ for num1 in [0.25, 0.50, 0.75]:
         x2.fill(num2)
         print('x1 is '+str(x1))
         print('x2 is ' + str(x2))
-        label, spectral_radius_1, spectral_radius_2, x1_avg_history, x2_avg_history = run_simulation(x1, x2, B, delta)
+        label, spectral_radius_1, spectral_radius_2, x1_avg_history, x2_avg_history, det_radius_1, det_radius_2 = run_simulation(x1, x2, B, delta)
         x1_avg_histories.append(x1_avg_history)
         x2_avg_histories.append(x2_avg_history)
 
@@ -271,6 +276,23 @@ elif label == 3.1 or label == 3.2:
     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/beta_2.csv", beta[1], delimiter=",")
     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/delta_1.csv", delta[0], delimiter=",")
     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/delta_2.csv", delta[1], delimiter=",")
+elif label == 4.3:
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/detr.csv", np.array([det_radius_1, det_radius_2]), delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/A1.csv", A[0], delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/A2.csv", A[1], delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/beta_1.csv", beta[0], delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/beta_2.csv", beta[1], delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/delta_1.csv", delta[0], delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/delta_2.csv", delta[1], delimiter=",")
+elif label == 4.1:
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/A1.csv", A[0], delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/A2.csv", A[1], delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/beta_1.csv", beta[0], delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/beta_2.csv", beta[1], delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/delta_1.csv", delta[0], delimiter=",")
+    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/delta_2.csv", delta[1], delimiter=",")
 
 # # ------------------------------------------------------------------------------------------------------------
 # def run_and_save(num_of_exp: int, generation_func, output_file):
