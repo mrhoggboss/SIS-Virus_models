@@ -36,7 +36,7 @@ N = 20  # Number of nodes
 h = 0.1  # Discretization step size
 W = 2 # upperbound on network edge weights
 ZERO_BOUND = 1e-8 # the bound for which we consider the value zero
-iterations = 1000
+iterations = 10000
 
 def run_simulation(x1, x2 , B, delta):
     '''
@@ -260,39 +260,39 @@ for num1 in [0.25, 0.50, 0.75]:
 
 plot_simulation(x1_avg_histories, x2_avg_histories) 
 
-if label == 2:
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/A1.csv", A[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/A2.csv", A[1], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/beta_1.csv", beta[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/beta_2.csv", beta[1], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/delta_1.csv", delta[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/delta_2.csv", delta[1], delimiter=",")
-elif label == 3.1 or label == 3.2:
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/A1.csv", A[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/A2.csv", A[1], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/beta_1.csv", beta[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/beta_2.csv", beta[1], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/delta_1.csv", delta[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/delta_2.csv", delta[1], delimiter=",")
-elif label == 4.3:
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/detr.csv", np.array([det_radius_1, det_radius_2]), delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/A1.csv", A[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/A2.csv", A[1], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/beta_1.csv", beta[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/beta_2.csv", beta[1], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/delta_1.csv", delta[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/delta_2.csv", delta[1], delimiter=",")
-elif label == 4.1:
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/A1.csv", A[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/A2.csv", A[1], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/beta_1.csv", beta[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/beta_2.csv", beta[1], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/delta_1.csv", delta[0], delimiter=",")
-    np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/delta_2.csv", delta[1], delimiter=",")
+# if label == 2:
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/A1.csv", A[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/A2.csv", A[1], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/beta_1.csv", beta[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/beta_2.csv", beta[1], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/delta_1.csv", delta[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm2/delta_2.csv", delta[1], delimiter=",")
+# elif label == 3.1 or label == 3.2:
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/A1.csv", A[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/A2.csv", A[1], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/beta_1.csv", beta[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/beta_2.csv", beta[1], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/delta_1.csv", delta[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm3/delta_2.csv", delta[1], delimiter=",")
+# elif label == 4.3:
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/detr.csv", np.array([det_radius_1, det_radius_2]), delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/A1.csv", A[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/A2.csv", A[1], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/beta_1.csv", beta[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/beta_2.csv", beta[1], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/delta_1.csv", delta[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/delta_2.csv", delta[1], delimiter=",")
+# elif label == 4.1:
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/A1.csv", A[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/A2.csv", A[1], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/beta_1.csv", beta[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/beta_2.csv", beta[1], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/delta_1.csv", delta[0], delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/delta_2.csv", delta[1], delimiter=",")
 
 # # ------------------------------------------------------------------------------------------------------------
 # def run_and_save(num_of_exp: int, generation_func, output_file):
