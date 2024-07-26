@@ -59,7 +59,7 @@ def run_simulation(x1, x2 , B, delta):
         sum_of_x = copy.deepcopy(np.diag(x[0]) + np.diag(x[1]))
         x[0] = x[0] + h * ((np.eye(N) - (sum_of_x)) @ B[0] - np.diag(delta[0])) @ x[0]
         x[1] = x[1] + h * ((np.eye(N) - (sum_of_x)) @ B[1] - np.diag(delta[1])) @ x[1]
-        x = np.clip(x, 0, 1)  # Ensure infection levels are between 0 and 1
+        # x = np.clip(x, 0, 1)  # Ensure infection levels are between 0 and 1
 
         x1_history.append(x[0].copy())
         x2_history.append(x[1].copy())
@@ -194,7 +194,7 @@ def random_exp():
         delta_bound = np.random.uniform(0, sum_a6)
         beta_bound = sum_a6 - delta_bound
 
-        delta_1.append(np.random.uniform(0, delta_bound / 5))
+        delta_1.append(np.random.uniform(0, delta_bound / 10))
         delta_2.append(np.random.uniform(0, delta_bound / 8))
 
         beta_1_bound = np.random.uniform(0, beta_bound / 6)
@@ -236,6 +236,11 @@ def random_exp():
 
 
 A, B, beta, delta = random_exp()
+
+# check for assumption 2
+if delta[0].any() < 0 or delta[1].any() < 0 or B[0].any() < 0 or B[1].any() < 0:
+    print('assumption 2 violated')
+
 # # init conditions
 # x1x2sum = np.random.uniform(0, 1, N)
 # x1 = np.random.uniform(0, x1x2sum, N)
@@ -250,6 +255,11 @@ for num1 in [0.25, 0.50, 0.75]:
     num2bound = 1 - num1
     num2list = [num2bound * (i + 1) / 4 for i in range(3)]
     for num2 in num2list:
+
+        # check assumption 1
+        if num1 < 0 or num1 > 1 or num2 < 0 or num2 > 1 or 1 - num1 - num2 < 0 or 1 - num1 - num2 > 1:
+            print('assumption 1 violated')
+        
         x1.fill(num1)
         x2.fill(num2)
         print('x1 is '+str(x1))
@@ -287,6 +297,7 @@ plot_simulation(x1_avg_histories, x2_avg_histories)
 #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_stable/delta_2.csv", delta[1], delimiter=",")
 # elif label == 4.1:
 #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/sr.csv", np.array([spectral_radius_1, spectral_radius_2]), delimiter=",")
+#     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/detr.csv", np.array([det_radius_1, det_radius_2]), delimiter=",")
 #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/A1.csv", A[0], delimiter=",")
 #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/A2.csv", A[1], delimiter=",")
 #     np.savetxt("c:/Users/bloge/OneDrive/Documents/Rice/Research/Virus Simulation/Double-systems-analysis/rand_thm4_unstable/beta_1.csv", beta[0], delimiter=",")
